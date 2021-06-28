@@ -5,8 +5,20 @@ import { UsersRespository } from "../repositories/UserRepository";
 class UserService {
     private usersRepository = getCustomRepository(UsersRespository);
 
+    async foundedAllUsers() {
+        return await this.usersRepository.find();
+    }
+
+    async foundedUserById(id: string) {
+        return await this.usersRepository.findOne({ id });
+    }
+
+    async foundedUserByEmail(email: string) {
+        return await this.usersRepository.findOne({ email });
+    }
+
     async verifyExisitingUser(email: string) {
-        const alredyUserExists = await this.usersRepository.findOne({ email });
+        const alredyUserExists = await this.foundedUserByEmail(email);
 
         if (alredyUserExists) return true;
 
@@ -16,11 +28,19 @@ class UserService {
     async createUser(userObj: object) {
         const createdUser = this.usersRepository.create(userObj);
 
-        await this.usersRepository.save(createdUser);
+        await this.saveDataUser(createdUser);
 
         if (createdUser) return true;
 
         return false;
+    }
+
+    async saveDataUser(userObj: object) {
+        return await this.usersRepository.save(userObj).then(() => {
+            return true;
+        }).catch(() => {
+            return false;
+        });
     }
 
     hashPasswordUser(password: string) {
@@ -36,8 +56,18 @@ class UserService {
         return deletedUser;
     }
 
-    async validateBodyContent() {
+    async validateBodyContent(value: string | boolean, compare: string | boolean) {
+        if (
+            value !== compare &&
+            value !== null &&
+            value !== ' ' &&
+            value !== '' &&
+            value !== undefined
+        ) {
+            return true;
+        }
 
+        return false;
     }
 }
 
