@@ -1,29 +1,38 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
-import { v4 as uuid } from 'uuid'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
+import { v4 as uuid } from "uuid";
+import { EventModel } from "./EventModel";
 
 @Entity("places")
 class PlaceModel {
-    @PrimaryColumn()
-    readonly id: string;
+  @PrimaryColumn()
+  readonly id: string;
 
-    @Column()
-    address: string;
+  @Column()
+  address: string;
 
-    @Column()
-    number: number;
+  @Column()
+  number: number;
 
-    @Column()
-    city: string;
+  @Column()
+  city: string;
 
-    @Column()
-    district: string;
+  @OneToMany(() => EventModel, (place) => PlaceModel)
+  events: EventModel[];
 
-    constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
+  @Column()
+  district: string;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
     }
-
+  }
 }
 
-export { PlaceModel }
+export { PlaceModel };

@@ -1,35 +1,44 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
-import { v4 as uuid } from 'uuid'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
+import { v4 as uuid } from "uuid";
+import { EventModel } from "./EventModel";
 
 @Entity("speakers")
 class SpeakerModel {
-    @PrimaryColumn()
-    readonly id: string;
+  @PrimaryColumn()
+  readonly id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    payment: boolean;
+  @Column()
+  payment: boolean;
 
-    @Column()
-    payment_value: number;
+  @Column()
+  payment_value: number;
 
-    @Column()
-    institution: string;
+  @Column()
+  institution: string;
 
-    @Column()
-    bio: string;
+  @Column()
+  bio: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @OneToMany(() => EventModel, (speaker) => SpeakerModel)
+  events: EventModel[];
 
-    constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
+  @CreateDateColumn()
+  created_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
     }
-
+  }
 }
 
-export { SpeakerModel }
+export { SpeakerModel };

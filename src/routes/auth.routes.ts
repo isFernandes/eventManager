@@ -5,7 +5,7 @@ const authRouter = Router();
 
 const authController = new AuthController();
 
-authRouter.post("/eventCreator", authController.singup);
-authRouter.post("/eventParticipant", authController.signin);
+// authRouter.post("/eventCreator", authController.singup);
+// authRouter.post("/eventParticipant", authController.signin);
 
 export { authRouter };

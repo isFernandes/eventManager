@@ -1,26 +1,42 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
-import { v4 as uuid } from 'uuid'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
+import { v4 as uuid } from "uuid";
+import { EventModel } from "./EventModel";
+import { UserModel } from "./UserModel";
 
 @Entity("event_participants")
 class EventParticipantModel {
-    @PrimaryColumn()
-    readonly id: string;
+  @PrimaryColumn()
+  readonly id: string;
 
-    @Column()
-    userparticipant_idname: string;
+  @ManyToOne(() => EventModel)
+  @JoinColumn({ name: "event_participant_id" })
+  participant: UserModel;
 
-    @Column()
-    event_id: string;
+  @Column()
+  eveny_participant_id: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @Column()
+  event_id: string;
 
-    constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
+  @ManyToOne(() => EventModel)
+  @JoinColumn({ name: "event_id" })
+  event: EventModel;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
     }
-
+  }
 }
 
-export { EventParticipantModel }
+export { EventParticipantModel };
