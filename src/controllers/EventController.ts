@@ -10,7 +10,8 @@ class EventController {
     const userService = new UserService();
 
     //trazendo os dados do front
-    const { name, description, event_date, institution_event } = request.body;
+    const { name, description, event_date, institution_event, speaker_name } =
+      request.body;
     const { id } = request.params;
 
     const eventCreator = await userService.foundedUserById(id);
@@ -25,6 +26,7 @@ class EventController {
       description,
       event_date,
       institution_event,
+      speaker_name,
     };
 
     const createdEvent = await eventService.createEvent(event);
@@ -36,12 +38,7 @@ class EventController {
     }
 
     //Caso sucesso retorna esse objeto
-    return response.status(201).json({
-      name,
-      description,
-      event_date,
-      institution_event,
-    });
+    return response.status(201).json(event);
   }
 
   //traz todos os eventos do sistema
@@ -91,7 +88,8 @@ class EventController {
 
     //parametros enviados juntos com a requisicao
     const { id } = request.params;
-    const { name, description, event_date, institution_event } = request.body;
+    const { name, description, event_date, institution_event, speaker_name } =
+      request.body;
 
     //localiza evento
     const foundedEvent = await eventService.foundedEventById(id);
@@ -111,6 +109,11 @@ class EventController {
     }
     if (eventService.validateBodyContent(event_date, foundedEvent.event_date)) {
       foundedEvent.event_date = event_date;
+    }
+    if (
+      eventService.validateBodyContent(speaker_name, foundedEvent.speaker_name)
+    ) {
+      foundedEvent.speaker_name = speaker_name;
     }
     if (
       eventService.validateBodyContent(

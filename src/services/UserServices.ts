@@ -7,13 +7,16 @@ class UserService {
 
   //servico traz todos os usuarios
   async foundedAllUsers() {
-    return await this.usersRepository.find();
+    return await this.usersRepository.find({ relations: ["events"] });
   }
 
   //servico retorna o usuario localizado pelo id
   async foundedUserById(id: string) {
     //retorna usuario localizado
-    return await this.usersRepository.findOne({ id });
+    return await this.usersRepository.findOne(
+      { id },
+      { relations: ["events"] }
+    );
   }
 
   //servico retorna o usuario localizado pelo email

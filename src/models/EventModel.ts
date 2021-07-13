@@ -31,7 +31,7 @@ class EventModel {
   event_creator: UserModel;
 
   @Column()
-  speaker_id: string;
+  speaker_name: string;
 
   @Column()
   place_id: string;

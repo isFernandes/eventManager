@@ -28,7 +28,7 @@ class UserModel {
   @Column()
   bio: string;
 
-  @OneToMany(() => EventModel, (event_creator) => UserModel)
+  @OneToMany(() => EventModel, (event) => event.event_creator)
   events: EventModel[];
 
   @Column()

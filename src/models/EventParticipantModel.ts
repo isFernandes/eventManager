@@ -16,11 +16,11 @@ class EventParticipantModel {
   readonly id: string;
 
   @ManyToOne(() => EventModel)
-  @JoinColumn({ name: "event_participant_id" })
+  @JoinColumn({ name: "participant_id" })
   participant: UserModel;
 
   @Column()
-  eveny_participant_id: string;
+  participant_id: string;
 
   @Column()
   event_id: string;

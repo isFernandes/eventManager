@@ -28,8 +28,8 @@ class SpeakerModel {
   @Column()
   bio: string;
 
-  @OneToMany(() => EventModel, (speaker) => SpeakerModel)
-  events: EventModel[];
+  // @OneToMany(() => EventModel, (speaker) => SpeakerModel)
+  // events: EventModel[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -16,9 +16,8 @@ export class CreateEvents1624137718451 implements MigrationInterface {
             type: "uuid",
           },
           {
-            name: "speaker_id",
-            type: "uuid",
-            isNullable: true,
+            name: "speaker_name",
+            type: "string",
           },
           {
             name: "place_id",
@@ -57,13 +56,6 @@ export class CreateEvents1624137718451 implements MigrationInterface {
             referencedColumnNames: ["id"],
             columnNames: ["event_creator_id"],
             onDelete: "CASCADE",
-            onUpdate: "CASCADE",
-          },
-          {
-            name: "FKSpeaker",
-            referencedTableName: "speakers",
-            referencedColumnNames: ["id"],
-            columnNames: ["speaker_id"],
             onUpdate: "CASCADE",
           },
           {

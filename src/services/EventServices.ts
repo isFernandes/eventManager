@@ -6,13 +6,16 @@ class EventService {
 
   //servico traz todos os eventos
   async foundedAllEvents() {
-    return await this.EventRepository.find();
+    return await this.EventRepository.find({ relations: ["event_creator"] });
   }
 
   //servico retorna o evento localizado pelo id
   async foundedEventById(id: string) {
     //retorna evento localizado
-    return await this.EventRepository.findOne({ id });
+    return await this.EventRepository.findOne(
+      { id },
+      { relations: ["event_creator"] }
+    );
   }
 
   async createEvent(eventObj: object) {
