@@ -12,18 +12,18 @@ userRouter.post("/eventCreator", userController.createEventCreator);
 
 userRouter.post("/eventParticipant", userController.createEventParticipant);
 
-userRouter.delete("/user/delete/:id", userController.deleteUser);
+userRouter.delete("/delete/user/:id", userController.deleteUser);
 
-userRouter.put("/user/update/:id", userController.updateUser);
+userRouter.put("/update/user/:id", userController.updateUser);
 
 userRouter.get("/user/:id", userController.getUser);
 
-userRouter.get("/user/all", userController.getAllUsers);
+userRouter.get("/all/users", userController.getAllUsers);
 
 //rotas relacionadas a usuarios
 userRouter.post("/user/subscribe", subscribeController.subscribe);
 
-userRouter.get("/user/subscribe/all", subscribeController.listAll);
+userRouter.get("/user/subscribe/all/:userId", subscribeController.listAll);
 
 userRouter.delete("/user/subscribe/:userId", subscribeController.removeSub);
 

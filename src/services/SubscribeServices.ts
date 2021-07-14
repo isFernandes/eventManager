@@ -9,6 +9,7 @@ class SubscribeService {
   async foundedAllSubscribe(participant_id: string) {
     return await this.subscriberRepository.find({
       where: { participant_id },
+      relations: ["event"],
     });
   }
 

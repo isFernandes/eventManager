@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { EventParticipantsRepository } from "../repositories/EventParticipantRepository";
 import { UserService } from "../services/UserServices";
 import { SubscribeService } from "../services/SubscribeServices";
 
@@ -41,18 +39,16 @@ class SubscribeController {
     if (!allSubs) {
       return response.status(500).json({ message: "Erro para se inscrever!" });
     }
-    return response
-      .status(201)
-      .json({
-        message: "Inscricao realizada com sucesso!",
-        allSubscribers: allSubs,
-      });
+    return response.status(201).json({
+      allSubscribers: allSubs,
+    });
   }
 
   async removeSub(request: Request, response: Response) {
     const userService = new UserService();
     const subscribeService = new SubscribeService();
-    const { eventId, userId } = request.body;
+    const { userId } = request.params;
+    const { eventId } = request.body;
 
     if (!(await userService.foundedUserById(userId))) {
       return response.status(400).json({ message: "Usuário não existente!" });

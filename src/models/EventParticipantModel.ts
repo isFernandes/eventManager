@@ -15,7 +15,7 @@ class EventParticipantModel {
   @PrimaryColumn()
   readonly id: string;
 
-  @ManyToOne(() => EventModel)
+  @ManyToOne(() => UserModel)
   @JoinColumn({ name: "participant_id" })
   participant: UserModel;
 
